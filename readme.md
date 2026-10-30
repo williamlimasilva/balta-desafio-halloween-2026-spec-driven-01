@@ -20,7 +20,10 @@ Neste desafio o objetivo é consolidar os fundamentos do Spec Driven Development
 
 Neste processo eu aprendi:
 
-- ✅
+- ✅ Escrever constituição, especificação, plano e tarefas com regras verificáveis, que guiaram a implementação com IA.
+- ✅ Aplicar as migrações na inicialização: um banco novo só funcionou depois de testar a API do zero.
+- ✅ Validar a aplicação de ponta a ponta (build, testes, criação, consulta e reinício) antes de publicar.
+- ✅ Expor a documentação com OpenAPI e Scalar apenas no ambiente Development.
 
 ## Sobre a aplicação
 
