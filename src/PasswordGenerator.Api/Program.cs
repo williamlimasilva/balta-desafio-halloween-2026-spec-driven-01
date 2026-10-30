@@ -4,6 +4,7 @@ using PasswordGenerator.Api.Data;
 using PasswordGenerator.Api.Endpoints;
 using PasswordGenerator.Api.Services;
 using PasswordGeneratorImpl = PasswordGenerator.Api.Services.PasswordGenerator;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,8 +34,20 @@ builder.Services.AddScoped<IPasswordStore, EfPasswordStore>();
 builder.Services.AddSingleton<IPasswordRandomSource, CryptographicPasswordRandomSource>();
 builder.Services.AddSingleton<IPasswordGenerator, PasswordGeneratorImpl>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+	scope.ServiceProvider.GetRequiredService<PasswordDbContext>().Database.Migrate();
+}
+
+if (app.Environment.IsDevelopment())
+{
+	app.MapOpenApi();
+	app.MapScalarApiReference();
+}
 
 app.MapPasswordEndpoints();
 
